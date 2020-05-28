@@ -17,6 +17,8 @@ class Request
 
     protected bool $valid = false;
 
+    protected bool $needAuth = false;
+
     public function __construct()
     {
 //        isset($_SERVER['REQUEST_METHOD']) ? $this->method = mb_strtoupper($_SERVER['REQUEST_METHOD']) : '';
@@ -40,7 +42,8 @@ class Request
         if (isset($this->method) && !is_null($this->uri)) {
             foreach ($routes[$this->method] as $pattern => $controller) {
                 if (preg_match('/' . $pattern . '/', $this->uri, $matches)) {
-                    $this->controller = $controller;
+                    $this->controller = $controller['handler'];
+                    $this->needAuth = $controller['needAuth'];
                     $this->valid = true;
                     $this->action = $matches[1] ?? NULL;
                     break;
@@ -96,6 +99,14 @@ class Request
     public function action(): ?string
     {
         return $this->action;
+    }
+
+    /**
+     * @return bool
+     */
+    public function needAuth(): bool
+    {
+        return $this->needAuth;
     }
 
 }
