@@ -33,6 +33,8 @@ class Response
     public function __construct($params)
     {
         //TODO: make construct. Think about struct of $params
+        isset($params['status']) ? $this->headers($params['status']) : NULL;
+        isset($params['body']) ? $this->body = $params['body'] : NULL;
     }
 
     public function sendHeaders()
