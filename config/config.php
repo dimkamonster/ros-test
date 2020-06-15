@@ -2,19 +2,11 @@
 
 class Config
 {
-    protected const salt = 'keyToGenerateTokensInAuthClass';
-
     public static function loadClass($class)
     {
-//    $class_full_path = $_SERVER['PWD'].'/classes/' . mb_strtolower($class) . '.php';
         $class_full_path = CURRENT_WORKING_DIR . '/classes/' . mb_strtolower($class) . '.php';
         if (file_exists($class_full_path))
             include_once $class_full_path;
-    }
-
-    public static function salt()
-    {
-        return self::salt;
     }
 
     public static function init()
@@ -47,7 +39,7 @@ class Config
         Route::add('POST', 'user\/(set)', 'users', TRUE);
 
 //Router::add('GET','user\/(get)\/id([0-9]+)','users');
-        Route::add('GET', 'user\/(get)', 'users', TRUE);
+        Route::add('GET', 'user\/(get)\/(id)', 'users', TRUE);
         Route::add('GET', 'user\/(get)', 'users', TRUE);
 
 //Router::add('POST', 'user\/id([0-9]+)','users');

@@ -21,7 +21,6 @@ class Request
 
     public function __construct()
     {
-//        isset($_SERVER['REQUEST_METHOD']) ? $this->method = mb_strtoupper($_SERVER['REQUEST_METHOD']) : '';
         $this->method = mb_strtoupper($_SERVER['REQUEST_METHOD']) ?? NULL;
         if (function_exists('apache_request_headers')) {
             $this->headers = apache_request_headers();
